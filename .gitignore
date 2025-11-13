@@ -1,0 +1,18 @@
+# Секретные файлы
+.env
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+venv/
+ENV/
+
+# Логи
+*.log
+logs/
+
+# Временные
+*.tmp
+*.bak
