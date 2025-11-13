@@ -1,0 +1,98 @@
+<analysis>
+The trajectory details the process of refactoring a monolithic Python Telegram bot into two separate applications: a  for public users and an  for staff. The initial request was to separate functionalities, with all admin commands moving to the new bot, while both share a common PostgreSQL database.
+
+The process began with code exploration to identify admin-related functions. Following user confirmation and detailed requirements, a new project structure (, , ) was created. A significant portion of the work involved extensive debugging. This included setting up a PostgreSQL database from scratch, managing user permissions, fixing Python indentation errors, resolving library dependency issues within a  environment, and correcting invalid API keys.
+
+A key feature implemented was the support ticket workflow: the  creates a ticket and notifies the , which then posts a message with a deep link to a specific Telegram group topic. The 's logic was enhanced to manage the ticket's lifecycle by editing and deleting these messages in the group as admins take, work on, and close tickets.
+
+The final phase involved cleaning up the project, creating comprehensive SQL and deployment documentation, and pushing the entire codebase to the user's GitHub repository, carefully excluding sensitive data using a  file. The work concluded right as the final push to GitHub was being initiated.
+</analysis>
+
+<product_requirements>
+The primary goal is to split a single Telegram bot application into two distinct, independently deployable bots:  and , which communicate via a shared PostgreSQL database.
+
+**User Bot Requirements:**
+- Retains all non-admin functionality: , , , .
+- Handles user interactions, including generating AI-based responses using an OpenAI key.
+- When a user creates a support ticket, the bot must save it to the database and trigger a notification to the .
+
+**Admin Bot Requirements:**
+- Houses all administrative commands: , , , etc.
+- Manages the full lifecycle of support tickets.
+- On receiving a new ticket notification, it must post a message to a designated Telegram group topic (, topic ID ).
+- The group message must contain the ticket details, the user's name, and a deep link (e.g., ) for an admin to claim the ticket. Link previews must be disabled.
+- When an admin claims a ticket, the bot updates the group message to show the assignee's name and removes the claim link.
+- When a ticket is closed, the bot deletes the corresponding message from the group.
+
+**General Requirements:**
+- The entire project codebase must be pushed to the user's GitHub repository.
+- Sensitive information like API keys and tokens must be excluded from the repository using .
+- Detailed documentation for database setup and project deployment must be created.
+</product_requirements>
+
+<key_technical_concepts>
+- **Application Architecture:** Refactoring a monolith into a microservices-style pattern with two separate bots communicating through a shared database.
+- **Telegram Bot Development:** Using the  Python library for handling bot commands, callbacks, and deep linking.
+- **Database Management:** Using  as the database, with  for asynchronous connections. SQL scripts are used for schema creation and data seeding.
+- **Process Management:** Using  to run the two bots as persistent background services, including user-specific execution and environment configuration.
+- **Version Control:** Using  and  for code storage and versioning, including managing  to protect sensitive data.
+</key_technical_concepts>
+
+<code_architecture>
+The project was restructured from a single application into a multi-directory setup to support two independent bots sharing common components.
+
+**Directory Structure:**
+
+
+**Key Files Modified/Created:**
+
+-   ****
+    -   **Importance:** Contains all logic for the admin bot, including command handlers (, ), callback queries for taking/closing tickets, and deep link processing.
+    -   **Changes:** Created from scratch to house all admin-facing functionality. Implemented logic to edit and delete messages in the admin group based on ticket status changes.
+
+-   ****
+    -   **Importance:** Main logic file for the user bot. Handles user commands and the creation of support tickets.
+    -   **Changes:** Admin-related commands were removed. A call to the  helper was added upon successful ticket creation to inform the admin bot.
+
+-   ****
+    -   **Importance:** A new helper module responsible for sending notifications to the admin bot's channel/group.
+    -   **Changes:** Created to decouple notification logic from the main bot core. Uses the  and  from the environment.
+
+-   ****
+    -   **Importance:** A critical, shared module for database interactions. It was a frequent source of bugs.
+    -   **Changes:** Heavily refactored. It now acts as a primary storage manager that initializes and provides access to other storage modules like . Proxy methods were added to it to call ticket-specific functions, and it was repeatedly debugged for indentation and logic errors.
+
+-   ****
+    -   **Importance:** A new module to encapsulate all database operations related to support tickets.
+    -   **Changes:** Created to improve separation of concerns. Contains functions like , , , etc.
+
+-   ** directory**
+    -   **Importance:** Contains all SQL scripts required to set up the database from scratch.
+    -   **Changes:** Created at the end of the project to provide a reliable way to initialize the database schema, create tables (, , ), and insert initial data.
+
+-   ****
+    -   **Importance:** Configuration file for  to manage the two bots as services.
+    -   **Changes:** Created to run  and  processes, manage their logs, and ensure they run under the correct user ().
+
+-   ****
+    -   **Importance:** The final, comprehensive guide for deploying the entire application on a new server.
+    -   **Changes:** Created as a final deliverable to document the setup process.
+</code_architecture>
+
+<pending_tasks>
+- No pending implementation tasks remain. The final request from the user was to organize the repository, create deployment documentation, and push the final changes to GitHub. The AI was in the process of executing this final push.
+</pending_tasks>
+
+<current_work>
+The project is in its final delivery stage. The AI engineer has successfully split the original bot into a  and an , debugged numerous issues related to database connectivity, Python code, and service configuration, and implemented an advanced support ticket workflow as requested by the user.
+
+Immediately before this summary request, the engineer was fulfilling the user's final set of instructions:
+1.  **Codebase Cleanup:** Reorganizing the root directory by moving all markdown documentation into a new  folder to keep the root clean.
+2.  **Database Scripting:** Creating a new  directory containing a series of ordered SQL scripts (, , ) and a shell script () to fully automate database initialization.
+3.  **Final Documentation:** Authoring a comprehensive  file that provides step-by-step instructions for setting up the entire project on a new server.
+4.  **GitHub Push:** The final action was to commit all these new documentation and script files and push them to the user's GitHub repository. The trajectory ended just as this action was being initiated. Both bots were left in a running and stable state in the AI's environment.
+</current_work>
+
+<optional_next_step>
+Commit the newly created  and  directories, the updated , and the  file, and push all changes to the  branch of the user's GitHub repository.
+</optional_next_step>
