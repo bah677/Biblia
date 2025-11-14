@@ -102,11 +102,12 @@ pip install -r requirements.txt
 
 ### 3. Настройка PostgreSQL
 
-```bash
-# Установка PostgreSQL
-sudo apt-get install postgresql postgresql-contrib
+**Автоматическая установка (рекомендуется):**
 
-# Создание базы данных
+```bash
+cd database
+chmod +x setup_database.sh
+sudo ./setup_database.sh
 sudo -u postgres psql
 CREATE USER bot_user WITH PASSWORD 'your_password';
 CREATE DATABASE telegram_bot OWNER bot_user;
