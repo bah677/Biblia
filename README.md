@@ -262,13 +262,71 @@ tail -f /var/log/supervisor/admin_bot.out.log
 
 GitHub: [@bah677](https://github.com/bah677)
 
-## 🆘 Поддержка
+## ✨ Ключевые особенности проекта
 
-Если возникли вопросы:
-1. Проверьте логи: `tail -f /var/log/supervisor/*.log`
-2. Убедитесь что PostgreSQL запущен: `service postgresql status`
-3. Проверьте .env файлы на правильность
+### 1. Единый файл конфигурации
+- **Один `.env` файл** в корне для обоих ботов
+- Упрощает развертывание и управление
+- Общие переменные (БД) не дублируются
+
+### 2. Правильные права доступа PostgreSQL
+- Автоматическое назначение `bot_user` владельцем таблиц
+- Полная документация в [docs/DATABASE_PERMISSIONS.md](docs/DATABASE_PERMISSIONS.md)
+- Решение типичных проблем с правами
+
+### 3. Интеграция между ботами
+- User Bot создает тикеты → уведомляет Admin Bot
+- Admin Bot постит в группу с deep link
+- Автоматическое обновление/удаление сообщений при изменении статуса
+
+### 4. Полная документация
+- 📘 [README.md](README.md) - Общая информация и быстрый старт
+- 📗 [DEPLOYMENT.md](DEPLOYMENT.md) - Подробное развертывание
+- 📕 [QUICK_DEPLOY.md](QUICK_DEPLOY.md) - Чеклист на 10 минут
+- 📙 [ENV_CONFIGURATION.md](ENV_CONFIGURATION.md) - Конфигурация переменных
+- 📓 [docs/DATABASE_PERMISSIONS.md](docs/DATABASE_PERMISSIONS.md) - Права БД
+
+## 🆘 Troubleshooting
+
+### Ошибка "must be owner of table"
+```bash
+# Назначьте bot_user владельцем
+sudo -u postgres psql -d telegram_bot << 'EOF'
+ALTER TABLE users OWNER TO bot_user;
+ALTER TABLE admins OWNER TO bot_user;
+ALTER TABLE bot_content OWNER TO bot_user;
+ALTER TABLE messages OWNER TO bot_user;
+ALTER TABLE referrals OWNER TO bot_user;
+ALTER TABLE support_tickets OWNER TO bot_user;
+ALTER TABLE token_usage OWNER TO bot_user;
+EOF
+```
+
+### Бот не запускается
+```bash
+# Проверьте логи
+tail -f /var/log/supervisor/*.log
+
+# Проверьте PostgreSQL
+sudo systemctl status postgresql
+
+# Проверьте .env файл
+cat .env | grep -v "^#" | grep "="
+```
+
+### Проблемы с подключением к БД
+```bash
+# Тест подключения
+psql -U bot_user -d telegram_bot -h localhost -W
+
+# Проверка прав
+sudo -u postgres psql -d telegram_bot -c "\dt"
+```
+
+Подробное решение проблем: [QUICK_DEPLOY.md](QUICK_DEPLOY.md#-troubleshooting)
 
 ---
 
-⭐ Если проект полезен, поставьте звезду!
+📚 **Документация:** См. папку [docs/](docs/) для дополнительных гайдов
+
+⭐ **Если проект полезен, поставьте звезду!**
