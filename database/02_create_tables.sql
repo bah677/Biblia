@@ -133,4 +133,13 @@ CREATE INDEX IF NOT EXISTS idx_referrals_referred_id ON referrals(referred_id);
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO bot_user;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO bot_user;
 
-\echo '✅ Все таблицы созданы'
+-- Назначение bot_user владельцем всех таблиц
+ALTER TABLE users OWNER TO bot_user;
+ALTER TABLE messages OWNER TO bot_user;
+ALTER TABLE token_usage OWNER TO bot_user;
+ALTER TABLE bot_content OWNER TO bot_user;
+ALTER TABLE admins OWNER TO bot_user;
+ALTER TABLE support_tickets OWNER TO bot_user;
+ALTER TABLE referrals OWNER TO bot_user;
+
+\echo '✅ Все таблицы созданы и права назначены'
