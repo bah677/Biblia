@@ -36,10 +36,10 @@
 ├── user_bot/          # Основной бот для пользователей
 │   ├── app/
 │   │   ├── bot/       # Логика бота
-│   │   ├── openai_client/  # Интеграция с OpenAI
-│   │   └── storage/   # Работа с БД
+│   │   └── helpers/   # Вспомогательные модули
 │   ├── main.py
 │   ├── config.py
+│   ├── requirements.txt
 │   └── .env.example
 │
 ├── admin_bot/         # Админский бот
@@ -47,6 +47,7 @@
 │   │   └── bot/       # Логика админского бота
 │   ├── main.py
 │   ├── config.py
+│   ├── requirements.txt
 │   └── .env.example
 │
 ├── shared/            # Общие модули
