@@ -1,17 +1,19 @@
 import os
 from dataclasses import dataclass
+from pathlib import Path
 from dotenv import load_dotenv
 
-# Загружаем переменные из .env файла
-load_dotenv()
+# Загружаем переменные из .env файла в корне проекта
+root_dir = Path(__file__).parent.parent
+load_dotenv(root_dir / '.env')
 
 @dataclass
 class Config:
     # Telegram
-    TELEGRAM_TOKEN: str = os.getenv("TELEGRAM_TOKEN", "")
+    TELEGRAM_TOKEN: str = os.getenv("ADMIN_BOT_TOKEN", "")
     
     # OpenAI (для статистики, если понадобится)
-    OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
+    OPENAI_API_KEY: str = os.getenv("ADMIN_OPENAI_API_KEY", "")
     
     # PostgreSQL Database (SHARED)
     DB_HOST: str = os.getenv("DB_HOST", "")
