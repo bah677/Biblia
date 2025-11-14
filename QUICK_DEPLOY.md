@@ -195,11 +195,28 @@ which python3
 # Проверьте, что PostgreSQL работает
 sudo systemctl status postgresql
 
-# Проверьте пароль в .env файлах
-grep DB_PASSWORD user_bot/.env admin_bot/.env
+# Проверьте пароль в .env файле
+grep DB_PASSWORD .env
 
 # Проверьте подключение
 psql -U bot_user -d telegram_bot -h localhost -W
+```
+
+### Ошибка "must be owner of table users"
+```bash
+# Назначьте bot_user владельцем всех таблиц
+sudo -u postgres psql -d telegram_bot << 'EOF'
+ALTER TABLE users OWNER TO bot_user;
+ALTER TABLE admins OWNER TO bot_user;
+ALTER TABLE bot_content OWNER TO bot_user;
+ALTER TABLE messages OWNER TO bot_user;
+ALTER TABLE referrals OWNER TO bot_user;
+ALTER TABLE support_tickets OWNER TO bot_user;
+ALTER TABLE token_usage OWNER TO bot_user;
+EOF
+
+# Перезапустите боты
+sudo supervisorctl restart all
 ```
 
 ### Бот не отвечает
