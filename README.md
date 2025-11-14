@@ -14,10 +14,9 @@ cd Biblia
 # 2. Настройте базу данных
 cd database && sudo ./setup_database.sh && cd ..
 
-# 3. Создайте .env файлы из примеров
-cp user_bot/.env.example user_bot/.env
-cp admin_bot/.env.example admin_bot/.env
-# Отредактируйте .env файлы, добавьте токены
+# 3. Создайте .env файл из примера
+cp .env.example .env
+nano .env  # Заполните все переменные
 
 # 4. Установите зависимости и запустите
 cd user_bot && pip install -r requirements.txt && cd ..
