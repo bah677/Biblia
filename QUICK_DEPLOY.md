@@ -40,43 +40,37 @@ cd ..
 # - Загрузку начальных данных
 ```
 
-### 3️⃣ Конфигурация ботов (2 мин)
+### 3️⃣ Конфигурация (1 мин)
 
-**User Bot:**
+**Создайте единый .env файл в корне:**
 ```bash
-cd user_bot
+cd /path/to/Biblia
 cp .env.example .env
 nano .env
 ```
 
-Заполните:
+Заполните все переменные:
 ```env
-TELEGRAM_TOKEN=ваш_токен_user_бота
-OPENAI_API_KEY=ваш_openai_ключ
+# Telegram Bots
+USER_BOT_TOKEN=ваш_токен_user_бота
+ADMIN_BOT_TOKEN=ваш_токен_admin_бота
+
+# OpenAI Keys
+USER_OPENAI_API_KEY=ваш_openai_ключ_для_user_бота
+ADMIN_OPENAI_API_KEY=ваш_openai_ключ_для_admin_бота
 ASSISTANT_ID=ваш_assistant_id
-DB_PASSWORD=eyo3uZh8uWsrinldTe
-SUPER_ADMIN_ID=ваш_telegram_id
-ADMIN_BOT_TOKEN=токен_admin_бота
-ADMIN_CHANNEL_ID=-1003415479914
-ADMIN_CHANNEL_THREAD_ID=2
-```
 
-**Admin Bot:**
-```bash
-cd ../admin_bot
-cp .env.example .env
-nano .env
-```
-
-Заполните:
-```env
-TELEGRAM_TOKEN=токен_admin_бота
-OPENAI_API_KEY=ваш_openai_ключ
+# Database
 DB_PASSWORD=eyo3uZh8uWsrinldTe
+
+# Admin
 SUPER_ADMIN_ID=ваш_telegram_id
 ADMIN_CHANNEL_ID=-1003415479914
 ADMIN_CHANNEL_THREAD_ID=2
+ADMIN_CHANNEL_LINK=ваш_invite_link
 ```
+
+💡 **Преимущество:** Все настройки в одном месте!
 
 ### 4️⃣ Установка зависимостей (2 мин)
 
