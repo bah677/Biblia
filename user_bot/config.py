@@ -27,6 +27,11 @@ class Config:
     # Super Admin (ваш Telegram ID)
     SUPER_ADMIN_ID: int = int(os.getenv("SUPER_ADMIN_ID", "0"))
     
+    # Admin Bot Configuration
+    ADMIN_BOT_TOKEN: str = os.getenv("ADMIN_BOT_TOKEN", "")
+    ADMIN_CHANNEL_ID: int = int(os.getenv("ADMIN_CHANNEL_ID", "0"))
+    ADMIN_CHANNEL_THREAD_ID: int = int(os.getenv("ADMIN_CHANNEL_THREAD_ID", "0"))
+    
     # Настройки
     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")
     MAX_WORKERS: int = int(os.getenv("MAX_WORKERS", "5"))
