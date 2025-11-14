@@ -1,6 +1,11 @@
 # 📖 Biblia - Telegram Bot Project
 
-Проект состоит из двух Telegram ботов для работы с библейским контентом и технической поддержкой.
+Проект состоит из двух независимых Telegram ботов для работы с библейским контентом и технической поддержкой. Боты работают на Python с использованием aiogram 3.x, PostgreSQL и OpenAI API.
+
+[![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15+-blue.svg)](https://www.postgresql.org/)
+[![aiogram](https://img.shields.io/badge/aiogram-3.10+-blue.svg)](https://docs.aiogram.dev/)
+[![OpenAI](https://img.shields.io/badge/OpenAI-API-green.svg)](https://openai.com/)
 
 ## 🚀 Быстрый старт
 
