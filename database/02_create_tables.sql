@@ -89,12 +89,14 @@ CREATE TABLE IF NOT EXISTS token_usage (
     completion_tokens INTEGER DEFAULT 0,
     total_tokens INTEGER DEFAULT 0,
     model VARCHAR(100),
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    created_date DATE DEFAULT CURRENT_DATE
 );
 
 -- Индексы для token_usage
 CREATE INDEX IF NOT EXISTS idx_token_usage_user_id ON token_usage(user_id);
 CREATE INDEX IF NOT EXISTS idx_token_usage_created_at ON token_usage(created_at);
+CREATE INDEX IF NOT EXISTS idx_token_usage_created_date ON token_usage(user_id, created_date DESC);
 
 -- Таблица контента для кнопок и тем
 CREATE TABLE IF NOT EXISTS bot_content (
