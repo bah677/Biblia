@@ -82,11 +82,16 @@ GRANT ALL PRIVILEGES ON DATABASE telegram_bot TO bot_user;
 \q
 EOF
 
-# Создание таблиц
+# Создание таблиц (включает назначение bot_user владельцем)
 sudo -u postgres psql -d telegram_bot -f /app/database/02_create_tables.sql
 
 # Вставка данных
 sudo -u postgres psql -d telegram_bot -f /app/database/03_insert_initial_data.sql
+
+# ВАЖНО: Проверьте что bot_user - владелец таблиц
+sudo -u postgres psql -d telegram_bot -c "\dt"
+# Если Owner = postgres, выполните:
+# ALTER TABLE <table_name> OWNER TO bot_user;
 ```
 
 ### 2.4. Проверка базы данных
