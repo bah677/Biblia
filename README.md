@@ -138,16 +138,15 @@ pip install -r requirements.txt
 cd database
 chmod +x setup_database.sh
 sudo ./setup_database.sh
-sudo -u postgres psql
-CREATE USER bot_user WITH PASSWORD 'your_password';
-CREATE DATABASE telegram_bot OWNER bot_user;
-GRANT ALL PRIVILEGES ON DATABASE telegram_bot TO bot_user;
-\q
+cd ..
+```
 
-# Запуск миграций
-cd /app
-python3 scripts/create_support_tickets_table.py
-python3 run_migrations.py
+Скрипт автоматически:
+- Установит PostgreSQL (если нужно)
+- Создаст пользователя `bot_user`
+- Создаст базу данных `telegram_bot`
+- Создаст все таблицы с правильными правами
+- Загрузит начальные данные
 ```
 
 ### 4. Настройка .env файлов
