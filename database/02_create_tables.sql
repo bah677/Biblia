@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS users (
     language_code VARCHAR(10),
     is_bot BOOLEAN DEFAULT FALSE,
     is_premium BOOLEAN DEFAULT FALSE,
+    openai_thread_id VARCHAR(255),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     last_activity TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     message_count INTEGER DEFAULT 0,
